@@ -1,0 +1,140 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: sans-serif;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+body {
+  padding: 1rem;
+  margin: 0;
+  text-align: center;
+  color: #fff;
+  background-color: #000;
+}
+
+/* Keypad */
+.keypad {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+}
+
+.keypad .key {
+  font-size: 1.6rem;
+  font-weight: bold;
+  line-height: 1;
+  width: 5rem;
+  height: 5rem;
+  padding: 1rem;
+  margin: 1rem;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(45, 35, 66, 0.4), 0 7px 13px -3px rgba(45, 35, 66, 0.3), 0 -3px 0 #d6d6e7 inset;
+  cursor: pointer;
+  transition: transform 0.15s;
+  user-select: none;
+  will-change: transform;
+}
+
+.keypad .key:hover {
+  transform: translateY(-2px);
+}
+
+/* Hangman */
+.stage {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 50px auto;
+}
+
+.stage * {
+  position: absolute;
+  background-color: #fff;
+  transition: opacity 0.9s;
+}
+
+.stage .base {
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+}
+
+.stage .post {
+  width: 2px;
+  top: 0;
+  bottom: 2px;
+  left: 30px;
+}
+
+.stage .bar {
+  width: 130px;
+  height: 2px;
+  top: 20px;
+  left: 10px;
+}
+
+.stage .rope {
+  width: 2px;
+  height: 20px;
+  top: 20px;
+  left: 120px;
+}
+
+.stage .head {
+  width: 30px;
+  height: 30px;
+  top: 40px;
+  left: 106px;
+  border-radius: 100%;
+  background-color: transparent;
+  border: 2px solid white;
+}
+
+.stage .body {
+  width: 2px;
+  height: 50px;
+  top: 70px;
+  left: 120px;
+}
+
+.stage .left-arm,
+.stage .right-arm {
+  height: 30px;
+  width: 2px;
+  top: 76px;
+}
+
+.stage .left-arm {
+  left: 110px;
+  transform: rotate(45deg);
+}
+
+.stage .right-arm {
+  left: 130px;
+  transform: rotate(-45deg);
+}
+
+.stage .left-leg,
+.stage .right-leg {
+  height: 30px;
+  width: 2px;
+  top: 114px;
+}
+
+.stage .left-leg {
+  left: 110px;
+  transform: rotate(45deg);
+}
+
+.stage .right-leg {
+  left: 130px;
+  transform: rotate(-45deg);
+}
