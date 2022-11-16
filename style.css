@@ -9,11 +9,22 @@ html {
 }
 
 body {
+  font-size: 1.6rem;
   padding: 1rem;
   margin: 0;
   text-align: center;
   color: #fff;
   background-color: #000;
+}
+
+h1 {
+  font-size: 2.4rem;
+}
+
+.random-word {
+  font-size: 2.4rem;
+  letter-spacing: 1rem;
+  margin: 2rem auto;
 }
 
 /* Keypad */
@@ -29,8 +40,8 @@ body {
   line-height: 1;
   width: 5rem;
   height: 5rem;
-  padding: 1rem;
-  margin: 1rem;
+  padding: 0.6rem;
+  margin: 0.6rem;
   color: #000;
   background-color: #fff;
   border: none;
@@ -44,6 +55,11 @@ body {
 
 .keypad .key:hover {
   transform: translateY(-2px);
+}
+
+.keypad .key:disabled {
+  color: rgba(0, 0, 0, 0.35);
+  pointer-events: none;
 }
 
 /* Hangman */
