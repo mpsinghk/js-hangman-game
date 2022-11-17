@@ -21,10 +21,49 @@ h1 {
   font-size: 2.4rem;
 }
 
+h2 {
+  margin: 0;
+  padding: 0;
+}
+
+.won {
+  color: green;
+}
+
+.lost {
+  color: red;
+}
+
 .random-word {
   font-size: 2.4rem;
   letter-spacing: 1rem;
   margin: 2rem auto;
+}
+
+.controls {
+  margin: 3rem 0 0;
+}
+
+.btn-reset {
+  font-size: 1.6rem;
+  font-weight: bold;
+  line-height: 1;
+  height: 5rem;
+  padding: 1rem 3rem;
+  color: #000;
+  text-transform: uppercase;
+  background-color: #fff;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(45, 35, 66, 0.4), 0 7px 13px -3px rgba(45, 35, 66, 0.3), 0 -3px 0 #d6d6e7 inset;
+  cursor: pointer;
+  transition: transform 0.15s;
+  user-select: none;
+  will-change: transform;
+}
+
+.btn-reset:hover {
+  transform: translateY(-2px);
 }
 
 /* Keypad */
