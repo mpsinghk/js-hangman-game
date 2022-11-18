@@ -14,7 +14,7 @@ function reset() {
     answer = [];
 
     gameStatus.textContent = '';
-    gameStatus.removeAttribute('class');
+    document.body.removeAttribute('class');
     stage.textContent = '';
     randomWordEl.textContent = '';
     keypadEl.textContent = '';
