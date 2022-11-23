@@ -9,118 +9,118 @@ const randomWordEl = document.querySelector('.random-word');
 const keypadEl = document.querySelector('.keypad');
 
 function reset() {
-    remainingGuesses = maxGuesses;
-    randomWord = '';
-    answer = [];
+  remainingGuesses = maxGuesses;
+  randomWord = '';
+  answer = [];
 
-    gameStatus.textContent = '';
-    document.body.removeAttribute('class');
-    stage.textContent = '';
-    randomWordEl.textContent = '';
-    keypadEl.textContent = '';
+  gameStatus.textContent = '';
+  document.body.removeAttribute('class');
+  stage.textContent = '';
+  randomWordEl.textContent = '';
+  keypadEl.textContent = '';
 
-    render();
+  render();
 }
 
 function btnResetHandler() {
-    const btnReset = document.querySelector('.btn-reset');
-    btnReset.addEventListener('click', reset);
+  const btnReset = document.querySelector('.btn-reset');
+  btnReset.addEventListener('click', reset);
 }
 
 function updateStatus() {
-    gameStatus.textContent = `Remaining guess ${remainingGuesses} of ${maxGuesses}`;
+  gameStatus.textContent = `Remaining guess ${remainingGuesses} of ${maxGuesses}`;
 }
 
 function generateRandomWord() {
-    const words = "The light blinded him. It was dark and he thought he was the only one in the area. The light shining in his eyes proved him wrong. It came from about hundred feet away and was shining so directly into his eyes he could not make out anything about the person holding the light. There was only one thing to do in this situation. He reached into his pocket and pulled out the flashlight of his own that was much stronger than the one currently blinding him. He turned it on and pointed it forward.".replaceAll('.', '').split(' ');
-    const uniqueWords = [...new Set(words)];
-    randomWord = uniqueWords[Math.floor(Math.random() * uniqueWords.length)].toUpperCase();
+  const words = "The light blinded him. It was dark and he thought he was the only one in the area. The light shining in his eyes proved him wrong. It came from about hundred feet away and was shining so directly into his eyes he could not make out anything about the person holding the light. There was only one thing to do in this situation. He reached into his pocket and pulled out the flashlight of his own that was much stronger than the one currently blinding him. He turned it on and pointed it forward.".replaceAll('.', '').split(' ');
+  const uniqueWords = [...new Set(words)];
+  randomWord = uniqueWords[Math.floor(Math.random() * uniqueWords.length)].toUpperCase();
 
-    for (let i = 0; i < randomWord.length; i++) {
-        randomWordEl.textContent += '_';
-        answer[i] = '_';
-    }
+  for (let i = 0; i < randomWord.length; i++) {
+    randomWordEl.textContent += '_';
+    answer[i] = '_';
+  }
 
-    console.log(randomWord);
+  console.log(randomWord);
 }
 
 function generateKeypad() {
-    const alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase().split('');
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase().split('');
 
-    alphabet.forEach(letter => {
-        const keyEl = document.createElement('button');
-        keyEl.classList.add('key', `key-${letter.toLowerCase()}`);
-        keyEl.textContent = letter;
-        keypadEl.appendChild(keyEl);
+  alphabet.forEach(letter => {
+    const keyEl = document.createElement('button');
+    keyEl.classList.add('key', `key-${letter.toLowerCase()}`);
+    keyEl.textContent = letter;
+    keypadEl.appendChild(keyEl);
 
-        // keyEl.setAttribute('onclick', `keyClickHandler('${letter}')`);
-        // keyEl.onclick = () => keyClickHandler(`${letter}`);
-        keyEl.addEventListener('click', () => keyClickHandler(`${letter}`));
-    });
+    // keyEl.setAttribute('onclick', `keyClickHandler('${letter}')`);
+    // keyEl.onclick = () => keyClickHandler(`${letter}`);
+    keyEl.addEventListener('click', () => keyClickHandler(`${letter}`));
+  });
 }
 
 function draw() {
-    hangman = ['base', 'post', 'bar', 'rope', 'head', 'body', 'left-arm', 'right-arm', 'left-leg', 'right-leg'];
+  hangman = ['base', 'post', 'bar', 'rope', 'head', 'body', 'left-arm', 'right-arm', 'left-leg', 'right-leg'];
 
-    const stagePart = document.createElement('div');
-    stagePart.className = hangman[(maxGuesses - remainingGuesses) - 1];
-    stage.appendChild(stagePart);
+  const stagePart = document.createElement('div');
+  stagePart.className = hangman[(maxGuesses - remainingGuesses) - 1];
+  stage.appendChild(stagePart);
 }
 
 function checkIfWon() {
-    if (randomWord === answer.join('')) {
-        document.body.className = 'won';
-        gameStatus.textContent = 'You won!';
-    } else {
-        document.body.className = 'lost';
-        gameStatus.textContent = 'You lost!';
-    }
+  if (randomWord === answer.join('')) {
+    document.body.className = 'won';
+    gameStatus.textContent = 'You won!';
+  } else {
+    document.body.className = 'lost';
+    gameStatus.textContent = 'You lost!';
+  }
 
-    const keys = document.querySelectorAll('.key');
-    keys.forEach(key => key.setAttribute('disabled', ''));
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => key.setAttribute('disabled', ''));
 }
 
 function printGuess(guessedLetter) {
-    let idx;
+  let idx;
 
-    randomWord.split('').forEach(() => {
-        idx = randomWord.indexOf(guessedLetter);
+  randomWord.split('').forEach(() => {
+    idx = randomWord.indexOf(guessedLetter);
 
-        while (idx !== -1) {
-            answer[idx] = guessedLetter;
-            idx = randomWord.indexOf(guessedLetter, idx + 1);
-        }
-    });
-
-    if (answer.join('') !== '') {
-        randomWordEl.textContent = answer.join('');
+    while (idx !== -1) {
+      answer[idx] = guessedLetter;
+      idx = randomWord.indexOf(guessedLetter, idx + 1);
     }
+  });
 
-    if (remainingGuesses <= 0 || randomWord === answer.join('')) {
-        checkIfWon();
-    }
+  if (answer.join('') !== '') {
+    randomWordEl.textContent = answer.join('');
+  }
+
+  if (remainingGuesses <= 0 || randomWord === answer.join('')) {
+    checkIfWon();
+  }
 }
 
 function keyClickHandler(guessedLetter) {
-    const guessedKeyEl = document.querySelector(`.key-${guessedLetter.toLowerCase()}`);
-    guessedKeyEl.setAttribute('disabled', '');
-    // guessedKeyEl.removeAttribute('onclick');
-    // guessedKeyEl.onclick = null;
+  const guessedKeyEl = document.querySelector(`.key-${guessedLetter.toLowerCase()}`);
+  guessedKeyEl.setAttribute('disabled', '');
+  // guessedKeyEl.removeAttribute('onclick');
+  // guessedKeyEl.onclick = null;
 
-    if (randomWord.indexOf(guessedLetter) === -1) {
-        --remainingGuesses;
-        updateStatus();
-        draw();
-        printGuess(guessedLetter);
-    } else {
-        printGuess(guessedLetter);
-    }
+  if (randomWord.indexOf(guessedLetter) === -1) {
+    --remainingGuesses;
+    updateStatus();
+    draw();
+    printGuess(guessedLetter);
+  } else {
+    printGuess(guessedLetter);
+  }
 }
 
 function render() {
-    updateStatus();
-    generateRandomWord();
-    generateKeypad();
+  updateStatus();
+  generateRandomWord();
+  generateKeypad();
 }
 
 btnResetHandler();
